@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./db.sqlite"
+}
+
+model WhitelistedJID {
+  id  Int    @id @default(autoincrement())
+  jid String @unique
+}
+
+model Setting {
+  id    Int    @id @default(autoincrement())
+  key   String @unique
+  value String
+}
