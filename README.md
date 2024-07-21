@@ -1,51 +1,45 @@
-# whisper-zap
+# 🤖 WhisperZap
 
-## Overview
+## 🌟 Overview
 
 This is a quick project I've written for personal use. It transcribes audio messages within WhatsApp chats.
 
-#### ⚠️ Important Note
+## ⚠️ Important Note
 
 This project was developed as a rapid prototype in approximately one hour. It lacks proper build configurations, transpilation/compilation to JavaScript, and production-ready database migrations. It's intended as a proof of concept rather than a fully polished application.
 
-## Features
+## 🚀 Features
 
-- Audio message transcription using AI
-- Whitelist-based (chat-based) access control
-- Adjustable transcription temperature settings
-- Customizable command prefix
+- 🎙️ AI-powered audio message transcription
+- 🔒 Whitelist-based access control for chats and users
+- 🌡️ Adjustable per-chat transcription temperature settings
+- 🛠️ Customizable command prefix
+- 👑 Advanced admin controls
 
-## Technology Stack
-
-- Node.js
-- TypeScript
-- Prisma (for database management)
-- Groq SDK (for AI-powered transcription)
-- @whiskeysockets/baileys (for WhatsApp Web API integration)
-
-## Quick Start
+## 🏁 Quick Start
 
 1. Clone the repository
 2. Install dependencies: `bun install`
-3. Configure environment variables in a `.env` file
+3. Set up environment variables in a `.env` file
 4. Generate Prisma client: `bunx prisma generate`
 5. Apply database migrations: `bunx prisma migrate dev`
 6. Manage whitelist: `bun run whitelist`
 7. Launch the bot: `bun run start`
 
-## Available Commands
+## 🛠️ Available Commands
 
-- `.jid`: Retrieve current chat JID
-- `.add`: Add current chat JID to whitelist
-- `.del`: Remove current chat JID from whitelist
-- `.temp [value]`: Set or get temperature (global)
-- `.jids`: List whitelisted JIDs
-- `.prefix [new_prefix]`: Set or get a new command prefix
-- `.help`: Displays the help message
+- `.jid`: Get current chat JID(s)
+- `.add [jid]`: Add JID to whitelist
+- `.del [jid]`: Remove JID from whitelist
+- `.temp [value]`: Set or get temperature (Admin only)
+- `.jids`: List all whitelisted JIDs
+- `.prefix [new_prefix]`: Set or get command prefix
+- `.help`: Show help message
+- `.admin add|del|list [jid]`: Manage admins (Admin only)
 
-## Whitelist Management
+## 🔐 Whitelist Management
 
-Use the `whitelist.ts` CLI tool to manage JIDs (WhatsApp IDs) that can interact with the bot: (make sure to add your own JID before running `bun run start` so you can actually use the bot yourself)
+Use the `whitelist.ts` CLI tool to manage JIDs (WhatsApp IDs) that can interact with the bot:
 
 ```bash
 bun run whitelist <command> [JID]
@@ -57,7 +51,7 @@ bun run whitelist <command> [JID]
 - `remove <JID>`: Remove a JID from whitelist
 - `list`: Display all whitelisted JIDs
 
-## Configuration
+## ⚙️ Configuration
 
 Customize the bot behavior using these environment variables:
 
@@ -67,12 +61,13 @@ Customize the bot behavior using these environment variables:
 - `ERROR_REACTION`: "Error" status emoji (default: "❌")
 - `DONE_REACTION`: "Done" status emoji (default: "✅")
 - `GROQ_API_KEY`: Your Groq API key for transcription
+- `ADMIN_JIDS`: Comma-separated list of admin JIDs
 
-## Contributing
+## 🤝 Contributing
 
 While contributions are welcome, please note that this project is not actively maintained due to its prototype nature.
 
-## Acknowledgements
+## 🙏 Acknowledgements
 
-- Baileys: Reverse engineered whatsapp web API
-- Groq: free (at the time of writing) whisper API endpoint
+- [Baileys](https://github.com/WhiskeySockets/Baileys): Reverse engineered WhatsApp Web API
+- [Groq](https://groq.com): Whisper API endpoint (free at the time of writing)

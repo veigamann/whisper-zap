@@ -8,12 +8,22 @@ datasource db {
 }
 
 model WhitelistedJID {
-  id  Int    @id @default(autoincrement())
-  jid String @unique
+  id      Int     @id @default(autoincrement())
+  jid     String  @unique
+  isAdmin Boolean @default(false)
 }
 
-model Setting {
+model GlobalSetting {
   id    Int    @id @default(autoincrement())
   key   String @unique
   value String
+}
+
+model ChatSetting {
+  id      Int    @id @default(autoincrement())
+  chatJid String
+  key     String
+  value   String
+
+  @@unique([chatJid, key])
 }
