@@ -1,89 +1,78 @@
-# 🤖 WhatsApp Audio Bot
+# whisper-zap
 
-Welcome to the WhatsApp Audio Bot project! This cool bot transcribes audio messages and responds to commands in your WhatsApp chats. It's like having a personal assistant right in your pocket! 📱✨
+## Overview
 
-## 🌟 Features
+This is a quick project I've written for personal use. It transcribes audio messages within WhatsApp chats.
 
-- 🎙️ Transcribe audio messages using advanced AI
-- 🔐 Whitelist system for controlled access
-- 🌡️ Adjustable temperature settings for transcription
-- 📝 Customizable command prefix
-- 🚀 Easy to set up and use
+#### ⚠️ Important Note
 
-## 🛠️ Tech Stack
+This project was developed as a rapid prototype in approximately one hour. It lacks proper build configurations, transpilation/compilation to JavaScript, and production-ready database migrations. It's intended as a proof of concept rather than a fully polished application.
 
-- [Node.js](https://nodejs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Prisma](https://www.prisma.io/) for database management
-- [Groq SDK](https://www.npmjs.com/package/groq-sdk) for AI-powered transcription
-- [@whiskeysockets/baileys](https://www.npmjs.com/package/@whiskeysockets/baileys) for WhatsApp Web API
+## Features
 
-## 🚀 Getting Started
+- Audio message transcription using AI
+- Whitelist-based (chat-based) access control
+- Adjustable transcription temperature settings
+- Customizable command prefix
 
-1. Clone this repository
-2. Install dependencies: `npm install`
-3. Set up your environment variables in a `.env` file
-4. Run the bot: `npm start`
+## Technology Stack
 
-## 📚 Available Commands
+- Node.js
+- TypeScript
+- Prisma (for database management)
+- Groq SDK (for AI-powered transcription)
+- @whiskeysockets/baileys (for WhatsApp Web API integration)
 
-- `.jid` - Get the current JID
-- `.add` - Add current JID to whitelist
-- `.del` - Remove current JID from whitelist
-- `.temp [value]` - Set or get temperature
-- `.jids` - List all whitelisted JIDs
-- `.prefix [new_prefix]` - Set or get command prefix
-- `.help` - Show help message
+## Quick Start
 
-## 🔒 Whitelist Management
+1. Clone the repository
+2. Install dependencies: `bun install`
+3. Configure environment variables in a `.env` file
+4. Generate Prisma client: `bunx prisma generate`
+5. Apply database migrations: `bunx prisma migrate dev`
+6. Manage whitelist: `bun run whitelist`
+7. Launch the bot: `bun run start`
 
-The `whitelist.ts` CLI tool allows you to manage the whitelist of JIDs (WhatsApp IDs) that can interact with the bot. Here's how to use it:
+## Available Commands
+
+- `.jid`: Retrieve current chat JID
+- `.add`: Add current chat JID to whitelist
+- `.del`: Remove current chat JID from whitelist
+- `.temp [value]`: Set or get temperature (global)
+- `.jids`: List whitelisted JIDs
+- `.prefix [new_prefix]`: Set or get a new command prefix
+- `.help`: Displays the help message
+
+## Whitelist Management
+
+Use the `whitelist.ts` CLI tool to manage JIDs (WhatsApp IDs) that can interact with the bot: (make sure to add your own JID before running `bun run start` so you can actually use the bot yourself)
 
 ```bash
 bun run whitelist <command> [JID]
 ```
 
-### Commands:
+**Commands:**
 
-- `add <JID>`: Add a JID to the whitelist
-- `remove <JID>`: Remove a JID from the whitelist
+- `add <JID>`: Whitelist a JID
+- `remove <JID>`: Remove a JID from whitelist
 - `list`: Display all whitelisted JIDs
 
-### Examples:
+## Configuration
 
-```bash
-# Add a JID to the whitelist
-bun run whitelist add 1234567890@s.whatsapp.net
+Customize the bot behavior using these environment variables:
 
-# Remove a JID from the whitelist
-bun run whitelist remove 1234567890@s.whatsapp.net
-
-# List all whitelisted JIDs
-bun run whitelist list
-```
-
-## 🔧 Configuration
-
-Customize your bot by setting these environment variables:
-
-- `BOT_PREFIX`: Prefix for bot messages (default: "> 🤖 _[BOT]_")
-- `CMD_PREFIX`: Prefix for commands (default: ".")
-- `WORKING_REACTION`: Emoji for "working" status (default: "⚙️")
-- `ERROR_REACTION`: Emoji for "error" status (default: "❌")
-- `DONE_REACTION`: Emoji for "done" status (default: "✅")
+- `BOT_PREFIX`: Bot message prefix (default: "> 🤖 _[BOT]_")
+- `CMD_PREFIX`: Command prefix (default: ".")
+- `WORKING_REACTION`: "Working" status emoji (default: "⚙️")
+- `ERROR_REACTION`: "Error" status emoji (default: "❌")
+- `DONE_REACTION`: "Done" status emoji (default: "✅")
 - `GROQ_API_KEY`: Your Groq API key for transcription
 
-## 🤝 Contributing
+## Contributing
 
-We welcome contributions! Please feel free to submit a Pull Request.
+While contributions are welcome, please note that this project is not actively maintained due to its prototype nature.
 
-## 📄 License
+## Acknowledgements
 
-This project is licensed under the MIT License.
-
-## 🙏 Acknowledgements
-
-- Thanks to the creators of Baileys for the amazing WhatsApp Web API
-- Shoutout to Groq for their powerful AI transcription capabilities
-
-Happy chatting with your new WhatsApp Audio Bot! 🎉🤖
+- Baileys: Reverse engineered whatsapp web API
+- Groq: free (at the time of writing) whisper API endpoint
