@@ -7,9 +7,9 @@ datasource db {
   url      = "file:./db.sqlite"
 }
 
-model WhitelistedJID {
+model WhitelistedUser {
   id      Int     @id @default(autoincrement())
-  jid     String  @unique
+  userId  String  @unique
   isAdmin Boolean @default(false)
 }
 
@@ -20,10 +20,10 @@ model GlobalSetting {
 }
 
 model ChatSetting {
-  id      Int    @id @default(autoincrement())
-  chatJid String
-  key     String
-  value   String
+  id     Int    @id @default(autoincrement())
+  chatId String
+  key    String
+  value  String
 
-  @@unique([chatJid, key])
+  @@unique([chatId, key])
 }
