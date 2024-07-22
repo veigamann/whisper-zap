@@ -1,73 +1,96 @@
-# 🤖 WhisperZap
+# whisper-zap
 
-## 🌟 Overview
+whisper-zap transcribes audio messages using the `whisper-v3-large` via the [Groq](https://www.groq.com/) API and manages user access through a whitelist system. I've written the basic gist of it myself and used Claude 3.5 Sonnet along with Github Copilot to write the boring parts like CRUD operations and command parsing and handling.
 
-This is a quick project I've written for personal use. It transcribes audio messages within WhatsApp chats.
+I've written this in an hour or so, so it's not perfect, may be very broken, and lacks a lot of features, but it works for me. Also, UX is not a priority here, so don't expect fancy prompts or logs.
 
-## ⚠️ Important Note
+I'm sharing it here in case someone finds it useful or wants to contribute to it. I'm not actively maintaining it, but I'll try to help if you have any questions.
 
-This project was developed as a rapid prototype in approximately one hour. It lacks proper build configurations, transpilation/compilation to JavaScript, and production-ready database migrations. It's intended as a proof of concept rather than a fully polished application.
+## ⚠️ Disclaimer
+
+This project is just a proof of concept and not intended for production use or deployment without further development and security considerations.
+
+I didn't bother adding JS/TS build steps, I'm just running it under the hood directly with `tsx` (script in `package.json`). Using `bun` purely as a package manager.
 
 ## 🚀 Features
 
-- 🎙️ AI-powered audio message transcription
-- 🔒 Whitelist-based access control for chats and users
-- 🌡️ Adjustable per-chat transcription temperature settings
-- 🛠️ Customizable command prefix
-- 👑 Advanced admin controls
+- Transcribe audio messages in WhatsApp chats
+- User whitelist management
+- Admin commands for bot configuration
+- Customizable command prefix
+- Chat-specific settings for the transcription
+- Reaction feedback for message processing status
 
 ## 🏁 Quick Start
 
-1. Clone the repository
-2. Install dependencies: `bun install`
-3. Set up environment variables in a `.env` file
-4. Generate Prisma client: `bunx prisma generate`
-5. Apply database migrations: `bunx prisma migrate dev`
-6. Manage whitelist: `bun run whitelist`
-7. Launch the bot: `bun run start`
+1. Clone the repository:
 
-## 🛠️ Available Commands
+   ```
+   git clone https://github.com/veigamann/whisper-zap
+   cd whisper-zap
+   ```
 
-- `.jid`: Get current chat JID(s)
-- `.add [jid]`: Add JID to whitelist
-- `.del [jid]`: Remove JID from whitelist
-- `.temp [value]`: Set or get temperature (Admin only)
-- `.jids`: List all whitelisted JIDs
-- `.prefix [new_prefix]`: Set or get command prefix
-- `.help`: Show help message
-- `.admin add|del|list [jid]`: Manage admins (Admin only)
+2. Install dependencies:
 
-## 🔐 Whitelist Management
+   ```
+   bun install
+   ```
 
-Use the `whitelist.ts` CLI tool to manage JIDs (WhatsApp IDs) that can interact with the bot:
+3. Set up environment variables in a `.env` file:
 
-```bash
-bun run whitelist <command> [JID]
-```
+   ```
+   DATABASE_URL="file:./dev.db"
+   GROQ_API_KEY="your_groq_api_key"
+   BOT_PREFIX="> 🤖  *[BOT]*"
+   WORKING_REACTION="⚙️"
+   ERROR_REACTION="❌"
+   DONE_REACTION="✅"
+   ADMIN_USER_IDS="5511999999999,5511888888888"
+   ```
 
-**Commands:**
+4. Generate Prisma client:
 
-- `add <JID>`: Whitelist a JID
-- `remove <JID>`: Remove a JID from whitelist
-- `list`: Display all whitelisted JIDs
+   ```
+   bunx prisma generate
+   ```
 
-## ⚙️ Configuration
+5. Apply database migrations:
 
-Customize the bot behavior using these environment variables:
+   ```
+   bunx prisma migrate dev
+   ```
 
-- `BOT_PREFIX`: Bot message prefix (default: "> 🤖 _[BOT]_")
-- `CMD_PREFIX`: Command prefix (default: ".")
-- `WORKING_REACTION`: "Working" status emoji (default: "⚙️")
-- `ERROR_REACTION`: "Error" status emoji (default: "❌")
-- `DONE_REACTION`: "Done" status emoji (default: "✅")
-- `GROQ_API_KEY`: Your Groq API key for transcription
-- `ADMIN_JIDS`: Comma-separated list of admin JIDs
+6. Manage whitelist (optional):
+
+   ```
+   bun run whitelist
+   ```
+
+7. Launch the bot:
+   ```
+   bun run start
+   ```
+
+## 📚 Available Commands
+
+- `.help` - Show help message
+- `.enable` - Enable the bot for the current chat
+- `.disable` - Disable the bot for the current chat
+- `.status` - Get bot status
+- `.id` - Get current chat and user IDs
+- `.temp [value]` - Set or get temperature (Admin only)
+- `.lang <rm> [language]` - Set or get the transcription language (Admin only)
+- `.prompt <rm> [prompt]` - Set or get the transcription prompt (Admin only)
+- `.prefix [newPrefix]` - Set or get command prefix
+- `.user <add|rm|list> [userId]` - Manage whitelisted users
+- `.admin <add|rm|list> [userId]` - Manage admins (Admin only)
 
 ## 🤝 Contributing
 
-While contributions are welcome, please note that this project is not actively maintained due to its prototype nature.
+As I made this for myself and just for fun, it's not actively maintained. However, if you'd like to contribute or improve the project, feel free to fork the repository and submit pull requests.
 
-## 🙏 Acknowledgements
+## Resources
 
-- [Baileys](https://github.com/WhiskeySockets/Baileys): Reverse engineered WhatsApp Web API
-- [Groq](https://groq.com): Whisper API endpoint (free at the time of writing)
+- [Groq](https://www.groq.com/) for providing the audio transcription API
+- [WhiskeySockets/Baileys](https://github.com/WhiskeySockets/Baileys) for the WhatsApp Web API implementation
+- [Prisma](https://www.prisma.io/) for the database ORM
